@@ -1,8 +1,10 @@
-package com.vi.vimarvel;
+package com.vi.vimarvel.view.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.vi.vimarvel.R;
 
 public class MainActivity extends AppCompatActivity {
 
