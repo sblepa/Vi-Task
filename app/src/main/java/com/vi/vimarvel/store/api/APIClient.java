@@ -1,8 +1,17 @@
 package com.vi.vimarvel.store.api;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.vi.vimarvel.BuildConfig;
 import com.vi.vimarvel.store.models.MarvelCharacterModel;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -40,22 +49,30 @@ public class APIClient {
 
     public void fetchMarvelCharacters(IAPIResponse<ArrayList<MarvelCharacterModel>> callback) {
         MarvelService serviceCall = retrofit.create(MarvelService.class);
-        Call<MarvelRespose<ArrayList<MarvelCharacterModel>>> call = serviceCall.getMarvelCharacters(apikey, ts, hash, FETCH_MARVEL_CHARACTERS_LIMIT);
+        Call<JsonElement> call = serviceCall.getMarvelCharacters(apikey, ts, hash, FETCH_MARVEL_CHARACTERS_LIMIT);
 
-        call.enqueue(new Callback<MarvelRespose<ArrayList<MarvelCharacterModel>>>() {
+        call.enqueue(new Callback<JsonElement>() {
             @Override
-            public void onResponse(Call<MarvelRespose<ArrayList<MarvelCharacterModel>>> call,
-                                   Response<MarvelRespose<ArrayList<MarvelCharacterModel>>> response) {
-                ArrayList<MarvelCharacterModel> data = null;
+            public void onResponse(Call<JsonElement> call,
+                                   Response<JsonElement> response) {
                 if (response.body() != null) {
-                    data = response.body().getResults();
-                }
+                    JsonElement body = response.body();
 
-                callback.onResponse(response.code(), data);
+                    // Deserialize
+                    try {
+                        JsonArray results = getResults(body);
+                        Type listType = new TypeToken<ArrayList<MarvelCharacterModel>>(){}.getType();
+                        ArrayList<MarvelCharacterModel> res = (new Gson()).fromJson(results, listType);
+                        callback.onResponse(response.code(), res);
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                        callback.onResponse(INTERNAL_ERROR_CODE, null);
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<MarvelRespose<ArrayList<MarvelCharacterModel>>> call, Throwable t) {
+            public void onFailure(Call<JsonElement> call, Throwable t) {
                 callback.onResponse(INTERNAL_ERROR_CODE, null);
             }
         });
@@ -65,19 +82,9 @@ public class APIClient {
      *  Internal Classes & Interfaces
      */
 
-    // Marvel API Data response
-    private class MarvelRespose<T> {
-        private int code;
-        private String status;
-        private MarvelResponseData data;
-
-        private class MarvelResponseData {
-            private T results;
-        }
-
-        T getResults() {
-            return data.results;
-        }
+    private JsonArray getResults(JsonElement response) throws IOException, JSONException {
+        JsonObject root = response.getAsJsonObject();
+        return root.getAsJsonObject("data").getAsJsonArray("results");
     }
 
     // Marvel service
@@ -86,9 +93,9 @@ public class APIClient {
         String BASE_URL = "https://gateway.marvel.com:443";
 
         @GET("/v1/public/characters")
-        Call<MarvelRespose<ArrayList<MarvelCharacterModel>>> getMarvelCharacters(@Query("apikey") String apiKEy,
-                                                                                 @Query("ts") int ts,
-                                                                                 @Query("hash") String hash,
-                                                                                 @Query("limit") int limit);
+        Call<JsonElement> getMarvelCharacters(@Query("apikey") String apiKEy,
+                                              @Query("ts") int ts,
+                                              @Query("hash") String hash,
+                                              @Query("limit") int limit);
     }
 }

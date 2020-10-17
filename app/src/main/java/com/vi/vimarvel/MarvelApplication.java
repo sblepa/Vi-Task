@@ -2,6 +2,7 @@ package com.vi.vimarvel;
 
 import android.app.Application;
 
+import com.vi.vimarvel.dispatcher.Dispatcher;
 import com.vi.vimarvel.store.MarvelStore;
 
 public class MarvelApplication extends Application {
@@ -11,6 +12,6 @@ public class MarvelApplication extends Application {
         super.onCreate();
 
         // Init the share store
-        MarvelStore.initSharedStore(getApplicationContext());
+        MarvelStore.initSharedStore(Dispatcher.getInstance());
     }
 }
