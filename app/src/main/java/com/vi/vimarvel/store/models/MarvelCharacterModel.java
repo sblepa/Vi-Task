@@ -9,4 +9,8 @@ public class MarvelCharacterModel {
         private String path;
         private String extension;
     }
+
+    public String getImageUrl() {
+        return thumbnail.path;
+    }
 }

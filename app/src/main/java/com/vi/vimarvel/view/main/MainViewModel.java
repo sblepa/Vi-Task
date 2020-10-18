@@ -14,6 +14,7 @@ import androidx.annotation.VisibleForTesting;
 public class MainViewModel implements IEventHandler<ArrayList<MarvelCharacterModel>> {
 
     private ArrayList<MarvelCharacterModel> marvelCharacters;
+    private IMainViewModelViewEvents viewEvents;
 
     MainViewModel() {
         this(Dispatcher.getInstance());
@@ -34,11 +35,36 @@ public class MainViewModel implements IEventHandler<ArrayList<MarvelCharacterMod
 
     @Override
     public void onEvent(EventType eventType, ArrayList<MarvelCharacterModel> data) {
-        marvelCharacters = data;
+        if (eventType == EventType.EVENT_TYPES_MARVEL_CHARACTERS_FETCHED) {
+            marvelCharacters = data;
+            if (viewEvents != null) {
+                viewEvents.onDataUpdate();
+            }
+        }
     }
 
     @Override
     public void onEventFailure(EventType eventType, EventErrorType errorType, ArrayList<MarvelCharacterModel> data) {
 
+    }
+
+    /*
+     * View Interface
+     */
+
+    interface IMainViewModelViewEvents {
+        void onDataUpdate();
+    }
+
+    void setViewEvents(IMainViewModelViewEvents viewEvents) {
+        this.viewEvents = viewEvents;
+    }
+
+    /*
+     * Internal
+     */
+
+    public ArrayList<MarvelCharacterModel> getMarvelCharacters() {
+        return marvelCharacters;
     }
 }

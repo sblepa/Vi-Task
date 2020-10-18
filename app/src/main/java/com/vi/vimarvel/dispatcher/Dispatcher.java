@@ -32,10 +32,8 @@ public class Dispatcher {
         actionsHandler = new Handler(actionLooper);
         actionListeners = new HashMap<>();
 
-        HandlerThread bgThreadEvent = new HandlerThread("EventHandlerThread");
-        bgThreadEvent.start();
-        Looper eventLooper = bgThreadEvent.getLooper();
-        eventsHandler = new Handler(eventLooper);
+        // Listen to events on the main thread (because its a UI communication)
+        eventsHandler = new Handler(Looper.getMainLooper());
         eventListeners = new HashMap<>();
     }
 
