@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.vi.vimarvel.view.main.MainViewModel"/>
+            type="com.vi.vimarvel.view.main.MarvelCharacterListViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.main.MainActivity">
+        tools:context=".view.main.MarvelCharacterListActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

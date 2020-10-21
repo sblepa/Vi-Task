@@ -11,18 +11,18 @@ import java.util.ArrayList;
 
 import androidx.annotation.VisibleForTesting;
 
-public class MainViewModel implements IEventHandler<ArrayList<MarvelCharacterModel>> {
+public class MarvelCharacterListViewModel implements IEventHandler<ArrayList<MarvelCharacterModel>> {
 
     private final Dispatcher dispatcher;
     private ArrayList<MarvelCharacterModel> marvelCharacters;
     private IMainViewModelViewEvents viewEvents;
 
-    MainViewModel() {
+    MarvelCharacterListViewModel() {
         this(Dispatcher.getInstance());
     }
 
     @VisibleForTesting
-    private MainViewModel(Dispatcher dispatcher) {
+    private MarvelCharacterListViewModel(Dispatcher dispatcher) {
 
         this.dispatcher = dispatcher;
         // Register to listen to character fetched events

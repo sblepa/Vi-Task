@@ -11,9 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements MainViewModel.IMainViewModelViewEvents {
+public class MarvelCharacterListActivity extends AppCompatActivity implements MarvelCharacterListViewModel.IMainViewModelViewEvents {
 
-    private MainViewModel viewModel;
+    private MarvelCharacterListViewModel viewModel;
     private MarvelImageAdapter imageAdapter;
 
     @Override
@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
         super.onCreate(savedInstanceState);
 
         // Create the ViewModel
-        viewModel = new MainViewModel();
+        viewModel = new MarvelCharacterListViewModel();
         viewModel.setViewEvents(this);
 
         // Bind layout to ViewModel
-        ActivityMainBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_main, null, false);
+        ActivityMainBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_marvel_character_list, null, false);
         setContentView(binding.getRoot());
         binding.setViewModel(viewModel);
 

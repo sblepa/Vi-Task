@@ -1,21 +1,15 @@
 package com.vi.vimarvel.view.main.adapters;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.vi.vimarvel.R;
-import com.vi.vimarvel.store.api.images.ImageFileDownloader;
 import com.vi.vimarvel.store.models.MarvelCharacterModel;
-import com.vi.vimarvel.view.main.MainViewModel;
+import com.vi.vimarvel.view.main.MarvelCharacterListViewModel;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.databinding.library.baseAdapters.BR;
@@ -23,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MarvelImageAdapter extends RecyclerView.Adapter<MarvelImageViewHolder> {
 
-    private final MainViewModel viewModel;
+    private final MarvelCharacterListViewModel viewModel;
 
-    public MarvelImageAdapter(MainViewModel viewModel) {
+    public MarvelImageAdapter(MarvelCharacterListViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
