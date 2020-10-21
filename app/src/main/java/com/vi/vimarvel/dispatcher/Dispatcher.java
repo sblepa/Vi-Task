@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Dispatcher {
@@ -100,6 +101,26 @@ public class Dispatcher {
                     WeakReference<IEventHandler> handler = iterator.next();
                     if (handler.get() != null) {
                         handler.get().onEventFailure(eventType, eventError, arguments);
+                    }
+                }
+            }
+        });
+    }
+
+    public void removeEventListener(IEventHandler eventHandler) {
+        this.eventsHandler.post(() -> {
+            for (EventType eventType : eventListeners.keySet()) {
+                Set<WeakReference<IEventHandler>> handlers = eventListeners.get(eventType);
+                WeakReference<IEventHandler> toRemove = null;
+                if (handlers != null) {
+                    for (WeakReference<IEventHandler> handler: handlers) {
+                        if (Objects.equals(handler.get(), eventHandler)) {
+                            toRemove = handler;
+                        }
+                    }
+
+                    if (toRemove != null) {
+                        handlers.remove(toRemove);
                     }
                 }
             }

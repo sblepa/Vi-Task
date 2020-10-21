@@ -26,7 +26,7 @@ public class MarvelStore {
         initRoutes();
     }
 
-    public static synchronized void initSharedStore(Dispatcher dispatcher) {
+    public static synchronized void initStore(Dispatcher dispatcher) {
         sharedInstance = new MarvelStore(dispatcher);
     }
 

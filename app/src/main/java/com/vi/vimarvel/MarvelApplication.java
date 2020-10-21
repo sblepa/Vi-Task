@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.vi.vimarvel.dispatcher.Dispatcher;
 import com.vi.vimarvel.store.MarvelStore;
+import com.vi.vimarvel.store.api.images.ImageFileDownloader;
 
 public class MarvelApplication extends Application {
 
@@ -12,6 +13,9 @@ public class MarvelApplication extends Application {
         super.onCreate();
 
         // Init the share store
-        MarvelStore.initSharedStore(Dispatcher.getInstance());
+        MarvelStore.initStore(Dispatcher.getInstance());
+
+        // Init the image downlaoder
+        ImageFileDownloader.initInstance(getApplicationContext());
     }
 }

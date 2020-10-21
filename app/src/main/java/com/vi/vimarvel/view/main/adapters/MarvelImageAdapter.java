@@ -1,11 +1,14 @@
 package com.vi.vimarvel.view.main.adapters;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.vi.vimarvel.R;
+import com.vi.vimarvel.store.api.images.ImageFileDownloader;
 import com.vi.vimarvel.store.models.MarvelCharacterModel;
 import com.vi.vimarvel.view.main.MainViewModel;
 
@@ -22,7 +25,7 @@ public class MarvelImageAdapter extends RecyclerView.Adapter<MarvelImageViewHold
 
     private final MainViewModel viewModel;
 
-    public MarvelImageAdapter(Context context, MainViewModel viewModel) {
+    public MarvelImageAdapter(MainViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
@@ -48,14 +51,5 @@ public class MarvelImageAdapter extends RecyclerView.Adapter<MarvelImageViewHold
         }
 
         return marvelCharacters.size();
-    }
-
-    /*
-     * Internal
-     */
-
-    @BindingAdapter("imagesrc")
-    public static void loadGridImage(ImageView imageView, String imageUrl){
-        imageView.setImageResource(R.drawable.test_marvel);
     }
 }

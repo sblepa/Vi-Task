@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.vi.vimarvel.BuildConfig;
+import com.vi.vimarvel.store.api.images.IImageResponse;
 import com.vi.vimarvel.store.models.MarvelCharacterModel;
 
 import org.json.JSONException;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import okhttp3.HttpUrl;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +27,8 @@ import retrofit2.http.Query;
 
 public class APIClient {
 
-    private final int INTERNAL_ERROR_CODE = -1;
+    public static final int INTERNAL_ERROR_CODE = -1;
+
     private final int FETCH_MARVEL_CHARACTERS_LIMIT = 20;
 
     private final Retrofit retrofit;

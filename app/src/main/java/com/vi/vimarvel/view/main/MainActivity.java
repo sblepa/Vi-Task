@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
         setContentView(binding.getRoot());
         binding.setViewModel(viewModel);
 
-        imageAdapter = new MarvelImageAdapter(this, viewModel);
+        imageAdapter = new MarvelImageAdapter(viewModel);
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setAdapter(imageAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        // TODO: Add pull to refresh functionality
     }
 
     @Override

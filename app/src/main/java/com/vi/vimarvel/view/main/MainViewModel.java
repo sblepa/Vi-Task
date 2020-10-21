@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting;
 
 public class MainViewModel implements IEventHandler<ArrayList<MarvelCharacterModel>> {
 
+    private final Dispatcher dispatcher;
     private ArrayList<MarvelCharacterModel> marvelCharacters;
     private IMainViewModelViewEvents viewEvents;
 
@@ -22,11 +23,17 @@ public class MainViewModel implements IEventHandler<ArrayList<MarvelCharacterMod
 
     @VisibleForTesting
     private MainViewModel(Dispatcher dispatcher) {
+
+        this.dispatcher = dispatcher;
         // Register to listen to character fetched events
         dispatcher.addEventListener(EventType.EVENT_TYPES_MARVEL_CHARACTERS_FETCHED, this);
 
         // Send fetch marvel characters action
         dispatcher.dispatchAction(ActionType.ACTION_TYPE_FETCH_MARVEL_CHARACTERS);
+    }
+
+    Dispatcher getDispatcher() {
+        return dispatcher;
     }
 
     /*

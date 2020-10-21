@@ -1,29 +1,29 @@
 package com.vi.vimarvel.store.routes;
 
-import com.vi.vimarvel.dispatcher.ActionType;
 import com.vi.vimarvel.dispatcher.Dispatcher;
 import com.vi.vimarvel.dispatcher.EventErrorType;
 import com.vi.vimarvel.dispatcher.EventType;
 import com.vi.vimarvel.store.api.APIClient;
 
-public class FetchMarvelCharactersRoute extends BaseRoute {
+import java.net.HttpURLConnection;
 
-    private final Dispatcher dispatcher;
+public class FetchMarvelCharactersRoute extends BaseRoute<Void> {
+
     private APIClient apiClient;
 
     public FetchMarvelCharactersRoute(APIClient apiClient, Dispatcher dispatcher) {
-        this.dispatcher = dispatcher;
+        super(dispatcher);
         this.apiClient = apiClient;
     }
 
     @Override
-    public void onAction(ActionType actionType, Object arguments) {
+    protected void handleRoute(Void arguments) {
         apiClient.fetchMarvelCharacters((responseCode, data) -> {
-            if (responseCode == -1) {
+            if (responseCode == APIClient.INTERNAL_ERROR_CODE) {
                 dispatcher.dispatchEventFailure(EventType.EVENT_TYPES_MARVEL_CHARACTERS_FETCHED,
                         EventErrorType.EVENT_ERROR_TYPE_INTERNAL,
                         null);
-            } else if (responseCode >= 400) {
+            } else if (responseCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
                 dispatcher.dispatchEventFailure(EventType.EVENT_TYPES_MARVEL_CHARACTERS_FETCHED,
                         EventErrorType.EVENT_ERROR_TYPE_GENERAL,
                         null);
