@@ -19,16 +19,17 @@ public class MarvelStore {
     @SuppressWarnings({"UnusedDeclaration", "FieldCanBeLocal"})
     private static MarvelStore sharedInstance;
 
-    private MarvelStore(Dispatcher dispatcher) {
+    private MarvelStore(Dispatcher dispatcher, APIClient apiClient) {
         this.dispatcher = dispatcher;
+        this.apiClient = apiClient;
+
         state = new MarvelStoreState();
-        apiClient = new APIClient();
 
         initRoutes();
     }
 
-    public static synchronized void initStore(Dispatcher dispatcher) {
-        sharedInstance = new MarvelStore(dispatcher);
+    public static synchronized void initStore(Dispatcher dispatcher, APIClient apiClient) {
+        sharedInstance = new MarvelStore(dispatcher, apiClient);
     }
 
     private void initRoutes() {

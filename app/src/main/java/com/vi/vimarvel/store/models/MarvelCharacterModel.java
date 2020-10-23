@@ -1,8 +1,8 @@
 package com.vi.vimarvel.store.models;
 
-public class MarvelCharacterModel {
+import androidx.annotation.VisibleForTesting;
 
-    private static final String IMAGE_SIZE = "portrait_xlarge";
+public class MarvelCharacterModel {
 
     private int id;
     protected Images images;
@@ -20,5 +20,13 @@ public class MarvelCharacterModel {
 
     public String getImageUrl() {
         return images != null ? images.md: null;
+    }
+
+    @VisibleForTesting
+    public void addImage(String url) {
+        if (images == null) {
+            images = new Images();
+            images.md = url;
+        }
     }
 }

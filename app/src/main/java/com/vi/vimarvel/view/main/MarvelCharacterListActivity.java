@@ -32,7 +32,7 @@ public class MarvelCharacterListActivity extends BaseActivity implements MarvelC
         binding.setViewModel(viewModel);
 
         imageAdapter = new MarvelImageAdapter(viewModel);
-        RecyclerView recyclerView = binding.recyclerView;
+        RecyclerView recyclerView = binding.charactersRecyclerView;
         recyclerView.setAdapter(imageAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

@@ -2,7 +2,6 @@ package com.vi.vimarvel.view.image;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.ImageView;
 
 import com.vi.vimarvel.store.api.images.ImageFileDownloader;
 

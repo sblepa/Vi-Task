@@ -40,16 +40,16 @@ public class ImageFileDownloader {
 
     private static ImageFileDownloader sharedInstance;
 
-    public static void initInstance(Context context) {
-        sharedInstance = new ImageFileDownloader(context);
+    public static void initInstance(Context context, OkHttpClient httpClient) {
+        sharedInstance = new ImageFileDownloader(context, httpClient);
     }
 
     public static ImageFileDownloader getInstance() {
         return sharedInstance;
     }
 
-    private ImageFileDownloader(Context context) {
-        imageDownloadClient = new OkHttpClient();
+    private ImageFileDownloader(Context context, OkHttpClient httpClient) {
+        imageDownloadClient = httpClient;
 
         initCache(context);
     }
