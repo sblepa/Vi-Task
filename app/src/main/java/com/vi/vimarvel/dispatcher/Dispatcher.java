@@ -18,6 +18,11 @@ public class Dispatcher {
     private Handler eventsHandler;
     private HashMap<EventType, Set<WeakReference<IEventHandler>>> eventListeners;
 
+    public static synchronized Dispatcher initSharedDispatcher() {
+        mInstance = new Dispatcher();
+        return mInstance;
+    }
+
     public static synchronized Dispatcher getInstance() {
         if (mInstance == null) {
             mInstance = new Dispatcher();

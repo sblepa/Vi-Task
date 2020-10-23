@@ -13,9 +13,9 @@ public class MarvelApplication extends Application {
         super.onCreate();
 
         // Init the share store
-        MarvelStore.initStore(Dispatcher.getInstance());
+        MarvelStore.initStore(Dispatcher.initSharedDispatcher());
 
-        // Init the image downlaoder
+        // Init the image downloader
         ImageFileDownloader.initInstance(getApplicationContext());
     }
 }
