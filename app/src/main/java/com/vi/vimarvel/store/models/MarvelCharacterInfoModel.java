@@ -22,15 +22,19 @@ public class MarvelCharacterInfoModel extends MarvelCharacterModel {
     }
 
     public String getFullName() {
-        return this.biography != null ? this.biography.fullName : "";
-    }
-
-    public String getAlias() {
-        if (this.biography == null) {
+        if (biography == null) {
             return "";
         }
 
-        ArrayList<String> filteredAliases = filterEmptyValues(this.biography.aliases);
+        return biography.fullName.equals(EMPTY_ELEMENT)? "" : biography.fullName;
+    }
+
+    public String getAlias() {
+        if (biography == null) {
+            return "";
+        }
+
+        ArrayList<String> filteredAliases = filterEmptyValues(biography.aliases);
 
         if (filteredAliases == null || filteredAliases.size() == 0) {
             return "";
@@ -41,7 +45,11 @@ public class MarvelCharacterInfoModel extends MarvelCharacterModel {
     }
 
     public String getPlaceOfBirth() {
-        return this.biography != null ? this.biography.placeOfBirth : "";
+        if (biography == null) {
+            return "";
+        }
+
+        return biography.placeOfBirth.equals(EMPTY_ELEMENT)? "" : biography.placeOfBirth;
     }
 
     /*
