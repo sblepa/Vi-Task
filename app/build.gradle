@@ -17,9 +17,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "MARVEL_API_KEY", apiProperties['MARVEL_API_KEY'])
-        buildConfigField("int", "MARVEL_API_TS", apiProperties['MARVEL_API_TS'])
-        buildConfigField("String", "MARVEL_API_HASH", apiProperties['MARVEL_API_HASH'])
     }
     buildTypes {
         release {
@@ -42,5 +39,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }

@@ -4,6 +4,7 @@ import com.vi.vimarvel.dispatcher.ActionType;
 import com.vi.vimarvel.dispatcher.Dispatcher;
 import com.vi.vimarvel.store.api.APIClient;
 import com.vi.vimarvel.store.routes.BaseRoute;
+import com.vi.vimarvel.store.routes.FetchCharacterInfoRoute;
 import com.vi.vimarvel.store.routes.FetchMarvelCharactersRoute;
 
 import java.util.ArrayList;
@@ -34,5 +35,9 @@ public class MarvelStore {
         FetchMarvelCharactersRoute fetchMarvelCharactersRoute = new FetchMarvelCharactersRoute(apiClient, dispatcher);
         dispatcher.addActionListener(ActionType.ACTION_TYPE_FETCH_MARVEL_CHARACTERS, fetchMarvelCharactersRoute);
         routes.add(fetchMarvelCharactersRoute);
+
+        FetchCharacterInfoRoute fetchCharacterInfoRoute = new FetchCharacterInfoRoute(apiClient, dispatcher);
+        dispatcher.addActionListener(ActionType.ACTION_TYPE_FETCH_CHARACTER_INFO, fetchCharacterInfoRoute);
+        routes.add(fetchCharacterInfoRoute);
     }
 }

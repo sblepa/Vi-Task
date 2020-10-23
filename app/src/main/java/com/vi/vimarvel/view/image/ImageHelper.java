@@ -12,6 +12,10 @@ public class ImageHelper {
 
     @BindingAdapter("imagesrc")
     public static void loadGridImage(ImageView imageView, String imageUrl){
+        if (imageUrl == null) {
+            return;
+        }
+
         imageView.setImageDrawable(null);
         ImageFileDownloader downloader = ImageFileDownloader.getInstance();
         downloader.downloadImage(imageUrl, (responseCode, imageBitmap) -> {

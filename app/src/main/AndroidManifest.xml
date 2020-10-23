@@ -14,12 +14,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.main.MarvelCharacterListActivity">
+        <activity
+            android:name=".view.main.MarvelCharacterListActivity"
+            android:label="@string/main_screen_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.main.character.MarvelCharacterInfoActivity"
+            android:label="@string/info_screen_title"
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.main.MarvelCharacterListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.main.MarvelCharacterListActivity" />
         </activity>
     </application>
 

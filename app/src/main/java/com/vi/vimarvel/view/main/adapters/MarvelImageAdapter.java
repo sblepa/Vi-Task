@@ -34,7 +34,9 @@ public class MarvelImageAdapter extends RecyclerView.Adapter<MarvelImageViewHold
     @Override
     public void onBindViewHolder(@NonNull MarvelImageViewHolder holder, int position) {
         MarvelCharacterModel character = viewModel.getMarvelCharacters().get(position);
+        holder.getBindingView().setVariable(BR.characterId, character.getId());
         holder.getBindingView().setVariable(BR.url, character.getImageUrl());
+        holder.getBindingView().setVariable(BR.clickHandler, (IImageClickHandler) viewModel::onCharacterClicked);
     }
 
     @Override
@@ -45,5 +47,9 @@ public class MarvelImageAdapter extends RecyclerView.Adapter<MarvelImageViewHold
         }
 
         return marvelCharacters.size();
+    }
+
+    public interface IImageClickHandler {
+        void onClick(int characterId);
     }
 }

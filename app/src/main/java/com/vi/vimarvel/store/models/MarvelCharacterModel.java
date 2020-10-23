@@ -5,15 +5,20 @@ public class MarvelCharacterModel {
     private static final String IMAGE_SIZE = "portrait_xlarge";
 
     private int id;
-    private String name;
-    private Thumbnail thumbnail;
+    protected Images images;
 
-    private class Thumbnail {
-        private String path;
-        private String extension;
+    protected class Images {
+        private String xs;
+        private String sm;
+        private String md;
+        protected String lg;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getImageUrl() {
-        return String.format("%s/%s.%s",thumbnail.path, IMAGE_SIZE,  thumbnail.extension);
+        return images != null ? images.md: null;
     }
 }

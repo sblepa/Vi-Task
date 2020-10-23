@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ViMarvel</string>
+    <string name="charcter_name_title">Real Name</string>
+    <string name="charcter_alias_title">Alias</string>
+    <string name="charcter_place_of_birth_title">Place of birth</string>
+    <string name="main_screen_title">Marvel</string>
+    <string name="info_screen_title">Info</string>
+    <string name="empty_value_string">Not available</string>
 </resources>
