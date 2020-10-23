@@ -20,9 +20,9 @@ Pixel
 
 The app architecture is based on the " [unidirectional data flow](https://proandroiddev.com/unidirectional-data-flow-on-android-the-blog-post-part-1-cadcf88c72f5)" and specifically takes some of the Redux architecture concepts.
 It has 2 main parts, the UI and the Store, as implies from its name the UI is the logic and the Store is the app's business logic.
-The UI and the Store communicates using Async messages called Actions & Events, Actions are sent by the UI to the Store, Events are sent from the Store to the UI.
-On the UI side I've implemented an MVVM approach where we have ViewModels that are managing "Dumb" views (Activities) with bindings and communicate with the Store to get business data
-On the Store side the store dispatcher Routes which are the business logic flows, the routes call APIs using the APIClient, in theory the Store keeps a state which holds the business logic model but there was no need for this in the current app.
+The UI and the Store communicate using async messages called Actions & Events, Actions are sent by the UI to the Store, Events are sent from the Store to the UI.
+On the UI side I've implemented an MVVM approach where we have ViewModels that are managing "Dumb" views (Activities) with bindings and communicate with the Store to get business data.
+On the Store side the store dispatches Routes which are the business logic flows, the routes call APIs using the APIClient. In theory the Store has a State object which holds the business logic model but there was no need for this in the current implementation.
 
 ### *ImageFileDownloader*
 
