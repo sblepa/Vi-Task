@@ -55,7 +55,3 @@ I've added 2 types of test (as showcases), unit tests for the routes and an inst
 - Default image for when loading fails or no image exists
 - Stay in the same main screen scrolling position when returning from an info screen
 - Pagination when fetching/loading character list
-
-### *Disclaimers*
-
-* many of the boilerplate logic here could be moved to base classes, it wasn't done here as we have at most two instances of a base class
