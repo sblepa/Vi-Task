@@ -28,7 +28,7 @@ import okhttp3.ResponseBody;
 
 public class ImageFileDownloader {
 
-    public static final int INTERNAL_ERROR_CODE = -1;
+    private static final int INTERNAL_ERROR_CODE = -1;
 
     private final int CACHE_SIZE = 20 * 1024 * 1024; // Set cache size to 20MiB
     private final String CACHE_THREAD_NAME = "cacheHandler";
@@ -61,12 +61,10 @@ public class ImageFileDownloader {
             return;
         }
 
-        synchronized (CACHE_THREAD_NAME) {
-            byte[] imageBytes = memoryCache.get(url);
-            if (imageBytes != null) {
-                callback.onImageDownloaded(HttpURLConnection.HTTP_OK, BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
-                return;
-            }
+        byte[] imageBytes = memoryCache.get(url);
+        if (imageBytes != null) {
+            callback.onImageDownloaded(HttpURLConnection.HTTP_OK, BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
+            return;
         }
 
         Request request = new Request.Builder()
@@ -137,7 +135,10 @@ public class ImageFileDownloader {
                     ObjectInputStream objIn = new ObjectInputStream(in);
                     Map<String, byte[]> cacheMap = (Map<String, byte[]>) objIn.readObject();
                     for (Map.Entry<String, byte[]> entry : cacheMap.entrySet()) {
-                        memoryCache.put(entry.getKey(), entry.getValue());
+                        String url = entry.getKey();
+                        synchronized (url) {
+                            memoryCache.put(entry.getKey(), entry.getValue());
+                        }
                     }
 
                     objIn.close();
@@ -150,11 +151,12 @@ public class ImageFileDownloader {
     }
 
     private void saveToCache(String url, Bitmap imageBitmap) {
-        synchronized (CACHE_THREAD_NAME) {
-            if (memoryCache.get(url) == null) {
+        if (memoryCache.get(url) == null) {
+            synchronized (url) {
                 memoryCache.put(url, bitmapToByteArray(imageBitmap));
             }
         }
+
         cacheHandler.post(() -> {
                 try (FileOutputStream out = new FileOutputStream(imageCache)) {
                     ObjectOutputStream objOut = new ObjectOutputStream(out);
