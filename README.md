@@ -49,6 +49,13 @@ for the info screen we set the info text as the footer of the screen and then al
 
 I've added 2 types of test (as showcases), unit tests for the routes and an instrumentation test for the main screen
 
+### *3rd parties*
+
+- **retrofit** - Used for HTTP requests
+  - retrofit.okhttp3 - Used for image download requests
+- **mockito** - Used for mocking (both for unit tests and instrumentation tests)
+- **espresso** - Used for instrumentation tests
+
 ### *Future Improvements*
 
 - Pull to refresh in the main screen
